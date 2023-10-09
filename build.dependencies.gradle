@@ -28,4 +28,6 @@ dependencies {
     implementation 'org.firstinspires.ftc:Vision:9.0.0'
 
     implementation 'com.acmerobotics.dashboard:dashboard:0.4.11'
+
+    implementation 'org.openftc:easyopencv:1.7.0'
 }
