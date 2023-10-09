@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.opencv.imgproc.Imgproc;
+import org.openftc.easyopencv.OpenCvPipeline;
 
 public class pamh {
     boolean y = false;
@@ -46,6 +48,7 @@ public class pamh {
         Claw.setPosition(1);
 
     }
+
      // function for driving forward
      //runs motors forward at 60% power
     public void Forward(double seconds) {
