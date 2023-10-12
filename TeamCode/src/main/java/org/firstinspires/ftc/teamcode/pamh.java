@@ -21,6 +21,8 @@ public class pamh {
 
     public Servo Claw = null;
 
+    public DcMotor Lift = null;
+
     // sets hardware map to null and names it
     HardwareMap pamh = null;
     // creates runtime variable
@@ -35,6 +37,7 @@ public class pamh {
         Backleft = hmap.get(DcMotor.class,"LB");
         Frontleft = hmap.get(DcMotor.class,"LF");
         Claw = hmap.get(Servo.class,"C");
+        Lift = hmap.get(DcMotor.class,"L");
 
         Frontright.setDirection(DcMotor.Direction.REVERSE);
         Backright.setDirection(DcMotor.Direction.REVERSE);
@@ -46,6 +49,10 @@ public class pamh {
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Claw.setPosition(1);
+
+        Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
@@ -135,6 +142,7 @@ public class pamh {
         Frontleft.setPower(0);
         Backleft.setPower(0);
         Backright.setPower(0);
+        Lift.setPower(0);
     }
     public void G(double position){Claw.setPosition(position);
     }
