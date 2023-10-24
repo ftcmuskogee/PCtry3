@@ -19,20 +19,21 @@ import org.opencv.imgproc.Imgproc;
 
 @Autonomous
 public class OpenCv_nnnnnnnnnnn extends OpMode {
-    OpenCvWebcam webcam1 = null;
+    OpenCvWebcam Webcam1;
 
     @Override
     public void init() {
 
-        WebcamName webcamName = hardwareMap.get(WebcamName.class,"webcam1");
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam1 = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam1.setPipeline(new examplePipline());
+        //WebcamName webcamName = hardwareMap.get(WebcamName.class,"Webcam1");
 
-        webcam1.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        Webcam1 = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        Webcam1.setPipeline(new examplePipline());
+
+        Webcam1.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam1.startStreaming(640,360, OpenCvCameraRotation.UPRIGHT);
+                Webcam1.startStreaming(640,360, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -60,7 +61,7 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         Imgproc.cvtColor(input,YCbCr,Imgproc.COLOR_RGB2YCrCb);
         telemetry.addLine("pipeline running");
 
-        Rect leftRect = new Rect(320,1,319,359);
+        Rect leftRect = new Rect(1,1,319,359);
         Rect rightRect = new Rect(320,1,319,359);
 
         input.copyTo(outPut);
@@ -82,7 +83,7 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         if (leftavgfin > rightavgfin) {
             telemetry.addLine("Left");
         }
-        else {
+        else{
             telemetry.addLine("Right");
         }
         return(outPut);
