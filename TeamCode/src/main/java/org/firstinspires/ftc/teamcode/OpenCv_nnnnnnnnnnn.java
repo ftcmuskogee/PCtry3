@@ -50,8 +50,10 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         Mat YCbCr = new Mat();
         Mat leftcrop;
         Mat rightcrop;
+        Mat midcrop;
         double leftavgfin;
         double rightavgfin;
+        double midavgfin;
         Mat outPut = new Mat();
         Scalar rectColor = new Scalar(255.0,0.0,0.0);
 
@@ -63,32 +65,45 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
 
         Rect leftRect = new Rect(1,1,319,359);
         Rect rightRect = new Rect(320,1,319,359);
+        Rect midRect = new Rect(160,1,319,359);
 
         input.copyTo(outPut);
         Imgproc.rectangle(outPut,leftRect,rectColor,2);
         Imgproc.rectangle(outPut,rightRect,rectColor,2);
+        Imgproc.rectangle(outPut,midRect,rectColor,2);
 
         leftcrop = YCbCr.submat(leftRect);
         rightcrop = YCbCr.submat(rightRect);
+        midcrop = YCbCr.submat(midRect);
 
         Core.extractChannel(leftcrop,leftcrop,2);
         Core.extractChannel(rightcrop,rightcrop,2);
+        Core.extractChannel(midcrop,midcrop,2);
 
         Scalar leftavg = Core.mean(leftcrop);
         Scalar rightavg = Core.mean(rightcrop);
+        Scalar midavg = Core.mean(rightcrop);
 
         leftavgfin = leftavg.val[0];
         rightavgfin = rightavg.val[0];
+        midavgfin = midavg.val[0];
 
-        if (leftavgfin > rightavgfin) {
-            telemetry.addLine("Left");
+        if (leftavgfin > midavgfin) {
+            if (midavgfin > rightavgfin )
+                telemetry.addLine("Left");
+        }
+        else if (rightavgfin > midavgfin) {
+            if (midavgfin > leftavgfin)
+                telemetry.addLine("Right");
+
         }
         else{
-            telemetry.addLine("Right");
+            telemetry.addLine("Middle");
         }
         return(outPut);
         }
 
         }
     }
+
 
