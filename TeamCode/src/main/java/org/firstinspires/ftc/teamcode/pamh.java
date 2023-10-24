@@ -23,6 +23,8 @@ public class pamh {
 
     public DcMotor Lift = null;
 
+
+
     // sets hardware map to null and names it
     HardwareMap pamh = null;
     // creates runtime variable
