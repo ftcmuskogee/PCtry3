@@ -57,10 +57,9 @@ public class Luke_birthday extends LinearOpMode {
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Claw.setPosition(1);
         Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //calls from samplemecanumdrive
@@ -93,16 +92,22 @@ public class Luke_birthday extends LinearOpMode {
 
             // Makes variables Power1 and Power2 to their respective joystick
             double Power1 = gamepad1.right_stick_y;
-            double Power2 = gamepad1.left_stick_y;
+            speed = -.2;
+            Lift.setPower(Power1*speed);
 
-            if (gamepad1.right_bumper) {
+
+            if (gamepad2.right_bumper) {
                 Claw.setPosition(1);
             }
             //Closes claws when the left bumper on gamepad 2 is pressed
-            else if (gamepad1.left_bumper){
-                Claw.setPosition(0.7);
+            else if (gamepad2.left_bumper){
+                Claw.setPosition(0);
             }
 
+
+
+
+/*
             // sets speed depending on if the left trigger on gamepad 1 is pressed
             if (gamepad1.left_trigger > .1) {
                 speed = .5;
@@ -120,7 +125,7 @@ public class Luke_birthday extends LinearOpMode {
                         )
                 );
             }
-
+*/
             //adds data to the driver hub that tells you the coordinates of where the robot is on the field
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("a", poseEstimate.getX());

@@ -51,9 +51,11 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         Mat leftcrop;
         Mat rightcrop;
         Mat midcrop;
+        Mat midcrop2;
         double leftavgfin;
         double rightavgfin;
         double midavgfin;
+        double midavgfin2;
         Mat outPut = new Mat();
         Scalar rectColor = new Scalar(255.0,0.0,0.0);
 
@@ -64,42 +66,56 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         telemetry.addLine("pipeline running");
 
         Rect leftRect = new Rect(1,1,319,359);
-        Rect rightRect = new Rect(320,1,319,359);
         Rect midRect = new Rect(160,1,319,359);
+        Rect midRect2 = new Rect(160,1,319,359);
+        Rect rightRect = new Rect(320,1,319,359);
+
 
         input.copyTo(outPut);
         Imgproc.rectangle(outPut,leftRect,rectColor,2);
         Imgproc.rectangle(outPut,rightRect,rectColor,2);
         Imgproc.rectangle(outPut,midRect,rectColor,2);
+        //Imgproc.rectangle(outPut,midRect2,rectColor,2);
 
         leftcrop = YCbCr.submat(leftRect);
         rightcrop = YCbCr.submat(rightRect);
         midcrop = YCbCr.submat(midRect);
+        midcrop2 = YCbCr.submat(midRect2);
 
         Core.extractChannel(leftcrop,leftcrop,2);
         Core.extractChannel(rightcrop,rightcrop,2);
         Core.extractChannel(midcrop,midcrop,2);
+        Core.extractChannel(midcrop2,midcrop2,2);
 
         Scalar leftavg = Core.mean(leftcrop);
         Scalar rightavg = Core.mean(rightcrop);
         Scalar midavg = Core.mean(rightcrop);
+        Scalar midavg2 = Core.mean(rightcrop);
 
         leftavgfin = leftavg.val[0];
         rightavgfin = rightavg.val[0];
         midavgfin = midavg.val[0];
+        midavgfin2 = midavg2.val[0];
 
         if (leftavgfin > midavgfin) {
-            if (midavgfin > rightavgfin )
-                telemetry.addLine("Left");
+            telemetry.addLine("left");
+            if (leftavgfin > rightavgfin )
+                telemetry.addLine("Left1");
+                if (leftavgfin > midavgfin2 )
+                    telemetry.addLine("Left1");
         }
         else if (rightavgfin > midavgfin) {
+            telemetry.addLine("right");
             if (midavgfin > leftavgfin)
-                telemetry.addLine("Right");
+                telemetry.addLine("kindaRight");
+                if (midavgfin > leftavgfin)
+                    telemetry.addLine("actuallyRight");
 
         }
         else{
             telemetry.addLine("Middle");
         }
+
         return(outPut);
         }
 
