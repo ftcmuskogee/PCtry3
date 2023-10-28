@@ -20,7 +20,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 @Autonomous
-public class OpenCv_nnnnnnnnnnn extends OpMode {
+public class OpenCv_b extends OpMode {
     OpenCvWebcam Webcam1;
 
     @Override
@@ -64,42 +64,42 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
 
         public Mat processFrame(Mat input){
 
-        Imgproc.cvtColor(input,YCbCr,Imgproc.COLOR_RGB2YCrCb);
-        telemetry.addLine("pipeline running");
+            Imgproc.cvtColor(input,YCbCr,Imgproc.COLOR_RGB2YCrCb);
+            telemetry.addLine("pipeline running");
 
-        Rect leftRect = new Rect(1,1,158,359);
-        Rect midRect = new Rect(160,1,318,359);
-        Rect rightRect = new Rect(480,1,158,359);
-        input.copyTo(outPut);
-        Imgproc.rectangle(outPut,leftRect,rectColor,2);
-        Imgproc.rectangle(outPut,midRect,rectColor,2);
-        Imgproc.rectangle(outPut,rightRect,rectColor,2);
+            Rect leftRect = new Rect(1,1,158,359);
+            Rect midRect = new Rect(160,1,318,359);
+            Rect rightRect = new Rect(480,1,158,359);
+            input.copyTo(outPut);
+            Imgproc.rectangle(outPut,leftRect,rectColor,2);
+            Imgproc.rectangle(outPut,midRect,rectColor,2);
+            Imgproc.rectangle(outPut,rightRect,rectColor,2);
 
-        leftcrop = YCbCr.submat(leftRect);
-        midcrop = YCbCr.submat(midRect);
-        rightcrop = YCbCr.submat(rightRect);
+            leftcrop = YCbCr.submat(leftRect);
+            midcrop = YCbCr.submat(midRect);
+            rightcrop = YCbCr.submat(rightRect);
 
-        Core.extractChannel(leftcrop,leftcrop,1);
-        Core.extractChannel(rightcrop,rightcrop,1);
-        Core.extractChannel(midcrop,midcrop,1);
+            Core.extractChannel(leftcrop,leftcrop,2);
+            Core.extractChannel(rightcrop,rightcrop,2);
+            Core.extractChannel(midcrop,midcrop,2);
 
-        Scalar leftavg = Core.mean(leftcrop);
-        Scalar rightavg = Core.mean(rightcrop);
-        Scalar midavg = Core.mean(midcrop);
+            Scalar leftavg = Core.mean(leftcrop);
+            Scalar rightavg = Core.mean(rightcrop);
+            Scalar midavg = Core.mean(midcrop);
 
-        leftavgfin = leftavg.val[0];
-        rightavgfin = rightavg.val[0];
-        midavgfin = midavg.val[0];
+            leftavgfin = leftavg.val[0];
+            rightavgfin = rightavg.val[0];
+            midavgfin = midavg.val[0];
 
-        if ((rightavgfin > leftavgfin ) && (rightavgfin > midavgfin)){
-            telemetry.addLine("Right");
-        }
-        if ((leftavgfin > rightavgfin) && (leftavgfin > midavgfin)){
-           telemetry.addLine("Left");
-        }
-        if ((midavgfin > rightavgfin) && (midavgfin > leftavgfin)){
-            telemetry.addLine("Middle");
-        }
+            if ((rightavgfin > leftavgfin ) && (rightavgfin > midavgfin)){
+                telemetry.addLine("Right");
+            }
+            if ((leftavgfin > rightavgfin) && (leftavgfin > midavgfin)){
+                telemetry.addLine("Left");
+            }
+            if ((midavgfin > rightavgfin) && (midavgfin > leftavgfin)){
+                telemetry.addLine("Middle");
+            }
 
 
         /*else{
@@ -111,7 +111,7 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         //else
            // telemetry.addLine("Left");
 */
-        return(outPut);}}}
+            return(outPut);}}}
 
 
 
