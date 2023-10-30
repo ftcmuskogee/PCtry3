@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static com.sun.tools.doclint.Entity.and;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -35,6 +37,8 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
             public void onOpened() {
                 Webcam1.startStreaming(640,360, OpenCvCameraRotation.UPRIGHT);
             }
+            //1280
+            //720
 
             @Override
             public void onError(int errorCode) {
@@ -56,6 +60,9 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         double rightavgfin;
         double midavgfin;
         double midavgfin2;
+        double leftavgfin;
+        double rightavgfin;
+        double midavgfin;
         Mat outPut = new Mat();
         Scalar rectColor = new Scalar(255.0,0.0,0.0);
 
@@ -70,14 +77,19 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         Rect midRect2 = new Rect(160,1,319,359);
         Rect rightRect = new Rect(320,1,319,359);
 
+        Rect leftRect = new Rect(1,1,158,359);
+        Rect midRect = new Rect(160,1,318,359);
+        Rect rightRect = new Rect(480,1,158,359);
 
         input.copyTo(outPut);
         Imgproc.rectangle(outPut,leftRect,rectColor,2);
+        Imgproc.rectangle(outPut,midRect,rectColor,2);
         Imgproc.rectangle(outPut,rightRect,rectColor,2);
         Imgproc.rectangle(outPut,midRect,rectColor,2);
         //Imgproc.rectangle(outPut,midRect2,rectColor,2);
 
         leftcrop = YCbCr.submat(leftRect);
+        midcrop = YCbCr.submat(midRect);
         rightcrop = YCbCr.submat(rightRect);
         midcrop = YCbCr.submat(midRect);
         midcrop2 = YCbCr.submat(midRect2);
@@ -91,6 +103,14 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         Scalar rightavg = Core.mean(rightcrop);
         Scalar midavg = Core.mean(rightcrop);
         Scalar midavg2 = Core.mean(rightcrop);
+
+        Core.extractChannel(leftcrop,leftcrop,1);
+        Core.extractChannel(rightcrop,rightcrop,1);
+        Core.extractChannel(midcrop,midcrop,1);
+
+        Scalar leftavg = Core.mean(leftcrop);
+        Scalar rightavg = Core.mean(rightcrop);
+        Scalar midavg = Core.mean(midcrop);
 
         leftavgfin = leftavg.val[0];
         rightavgfin = rightavg.val[0];
@@ -117,9 +137,31 @@ public class OpenCv_nnnnnnnnnnn extends OpMode {
         }
 
         return(outPut);
+
+        if ((rightavgfin > leftavgfin ) && (rightavgfin > midavgfin)){
+            telemetry.addLine("Right");
+        }
+        if ((leftavgfin > rightavgfin) && (leftavgfin > midavgfin)){
+           telemetry.addLine("Left");
+        }
+        if ((midavgfin > rightavgfin) && (midavgfin > leftavgfin)){
+            telemetry.addLine("Middle");
         }
 
+
+        /*else{
+            telemetry.addLine("middle");
         }
-    }
+        //if (rightavgfin > leftavgfin){
+            //telemetry.addLine("Right");
+
+        //else
+           // telemetry.addLine("Left");
+*/
+        return(outPut);}}}
+
+
+
+
 
 
