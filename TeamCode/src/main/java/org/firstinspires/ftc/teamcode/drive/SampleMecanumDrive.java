@@ -32,10 +32,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityCons
 //import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
-<<<<<<< Updated upstream
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-=======
->>>>>>> Stashed changes
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -82,10 +79,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     private final DcMotorEx rightFront;
     private final List<DcMotorEx> motors;
 
-<<<<<<< Updated upstream
-=======
     //private final BNO055IMU imu;
->>>>>>> Stashed changes
     private final IMU imu;
     private final VoltageSensor batteryVoltageSensor;
 
@@ -104,14 +98,10 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
 
         // TODO: adjust the names of the following hardware devices to match your configuration
-<<<<<<< Updated upstream
-
-=======
        /* imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         imu.initialize(parameters);*/
->>>>>>> Stashed changes
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
@@ -319,25 +309,19 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     /*@Override
     public double getRawExternalHeading() {
-<<<<<<< Updated upstream
-=======
         return imu.getAngularOrientation().firstAngle;
     }*/
     @Override
     public double getRawExternalHeading() {
->>>>>>> Stashed changes
         return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
     }
 /*
     @Override
     public Double getExternalHeadingVelocity() {
-<<<<<<< Updated upstream
-=======
         return (double) imu.getAngularVelocity().xRotationRate;
     }*/
     @Override
     public Double getExternalHeadingVelocity() {
->>>>>>> Stashed changes
         return (double) imu.getRobotAngularVelocity(AngleUnit.RADIANS).zRotationRate;
     }
 

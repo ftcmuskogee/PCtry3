@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode;
-
+/*
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -128,4 +128,4 @@ public class visiontry extends LinearOpMode {
 }
 
 // gotta find correct values for things
-// probably set up center/right/left like example
+// probably set up center/right/left like example*/
